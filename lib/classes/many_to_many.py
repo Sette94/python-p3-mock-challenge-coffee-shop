@@ -38,10 +38,25 @@ class Coffee:
         return list(set([order.customer for order in self.orders()]))
 
     def num_orders(self):
-        pass
+        # number_of_orders = 0
+
+        # for order in Order.all:
+        #     if order.coffee == self:
+        #         number_of_orders += 1
+        # return number_of_orders
+
+        return len(self.orders())
 
     def average_price(self):
-        pass
+        # For an average we need Price/# of Orders
+
+        total_price = 0
+        for order in Order.all:
+            # order  =  order.price, order.customer, order.coffee
+            if order.coffee == self:
+                total_price += order.price
+
+        return total_price/self.num_orders()
 
 
 class Customer:
@@ -62,13 +77,13 @@ class Customer:
             self._name = val
 
     def orders(self):
-        pass
+        return [order for order in Order.all if order.customer == self]
 
     def coffees(self):
-        pass
+        return list(set([order.coffee for order in Order.all if order.customer == self]))
 
     def create_order(self, coffee, price):
-        pass
+        return Order(self, coffee, price)
 
 
 class Order:
